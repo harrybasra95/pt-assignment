@@ -8,7 +8,6 @@ module.exports = {
           path: path.join(__dirname, '/dist'),
           filename: 'bundle.js',
      },
-     devtool: 'inline-source-map',
      devServer: {
           static: './dist',
           historyApiFallback: true,
@@ -36,12 +35,7 @@ module.exports = {
      },
      resolve: {
           alias: {
-               Components: path.resolve(__dirname, './src/Components'),
-               Content: path.resolve(__dirname, './src/Content'),
-               Layouts: path.resolve(__dirname, './src/Layouts'),
-               Images: path.resolve(__dirname, './src/Assets/Images'),
-               Data: path.resolve(__dirname, './src/Assets/Data'),
-               Hooks: path.resolve(__dirname, './src/Hooks'),
+               // Components: path.resolve(__dirname, './src/Components'),
           },
           extensions: ['.jsx', '.ts', '.js'],
      },

@@ -20,11 +20,17 @@
      },
      "homepage": "https://github.com/harrybasra95/portfolio#readme",
      "dependencies": {
+          "@emotion/react": "^11.10.5",
+          "@emotion/styled": "^11.10.5",
           "@fontsource/roboto": "^4.5.8",
+          "@mui/material": "^5.11.3",
           "classnames": "^2.3.2",
+          "date-fns": "^2.29.3",
+          "ethers": "^5.7.2",
           "react": "^18.2.0",
           "react-dom": "^18.2.0",
-          "react-router-dom": "6"
+          "react-router-dom": "6",
+          "web3": "^1.8.1"
      },
      "devDependencies": {
           "@babel/core": "^7.18.6",

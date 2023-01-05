@@ -1,0 +1,11 @@
+.homepage-outer {
+     height: 100vh;
+     width: 100vw;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     .table-outer {
+          width: 50%;
+          height: 70%;
+     }
+}
