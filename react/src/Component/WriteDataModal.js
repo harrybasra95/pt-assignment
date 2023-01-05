@@ -46,11 +46,15 @@ const WriteDataModal = ({ onClose }) => {
      useEffect(() => {
           const isMetamaskInstalled = ethers.isMetamaskInstalled();
           if (errorMessage === null && !isMetamaskInstalled) {
-               return setErrorMessage('Please install metamask');
+               return setErrorMessage(
+                    'Please install metamask and reload the page'
+               );
           }
           const isMetamaskEnabled = ethers.isMetamaskEnabled();
           if (errorMessage === null && !isMetamaskEnabled) {
-               return setErrorMessage('Please connect metamask');
+               return setErrorMessage(
+                    'Please connect metamask and reload the page'
+               );
           }
           if (ethers.isReady()) {
                ethers.load();
@@ -131,7 +135,11 @@ const WriteDataModal = ({ onClose }) => {
 
      const renderErrorBox = () => {
           return (
-               <Box>
+               <Box
+                    sx={{
+                         p: 1,
+                    }}
+               >
                     <p>{errorMessage}</p>
                </Box>
           );
