@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { getTransactions } from '../Helpers/Ether';
+import WriteDataModal from './WriteDataModal';
 const rowsPerPage = 5;
 
 const StyledTableCell = styled(TableCell)(() => ({
@@ -45,6 +46,7 @@ const BasicTable = () => {
      const [rows, setRows] = useState([]);
      const [paginatedData, setPaginatedData] = useState([]);
      const [page, setPage] = useState(0);
+     const [showWriteDataModal, setShowWriteDataModal] = useState(false);
 
      const onPageChange = (e, page) => {
           setPage(page);
@@ -72,73 +74,93 @@ const BasicTable = () => {
           });
      }, []);
 
+     const handleWriteModalShow = () => setShowWriteDataModal(true);
+
+     const handleWriteModalHide = () => setShowWriteDataModal(false);
+
+     const renderWriteDataModal = () => {
+          if (!showWriteDataModal) return;
+          return <WriteDataModal onClose={handleWriteModalHide} />;
+     };
+
      return (
-          <Paper>
-               <TableContainer component={Paper}>
-                    <Table aria-label="simple table" size="small">
-                         <TableHead>
-                              <TableRow>
-                                   <Typography
-                                        sx={{ flex: '1 1 100%', p: 1 }}
-                                        variant="h6"
-                                        id="tableTitle"
-                                        component="div"
-                                   >
-                                        Storage
-                                   </Typography>
-                              </TableRow>
-                              <TableRow>{renderTableHeaders()}</TableRow>
-                         </TableHead>
-                         <TableBody>
-                              {paginatedData.map((row) => (
-                                   <TableRow
-                                        key={row.hash}
-                                        sx={{
-                                             '&:last-child td, &:last-child th':
-                                                  {
-                                                       border: 0,
-                                                  },
-                                        }}
-                                   >
-                                        <TableCell component="th" scope="row">
-                                             {minifyAddress(row.hash)}
-                                        </TableCell>
-                                        <TableCell>
-                                             {utils.hexToAscii(
-                                                  '0x' + row.data.slice(138)
-                                             )}
-                                        </TableCell>
-                                        <TableCell>
-                                             {renderDate(row.timestamp)}
-                                        </TableCell>
-                                        <TableCell>
-                                             {minifyAddress(row.from)}
-                                        </TableCell>
+          <>
+               {renderWriteDataModal()}
+               <Paper>
+                    <TableContainer component={Paper}>
+                         <Table aria-label="simple table" size="small">
+                              <TableHead>
+                                   <TableRow>
+                                        <Typography
+                                             sx={{ flex: '1 1 100%', p: 1 }}
+                                             variant="h6"
+                                             id="tableTitle"
+                                             component="div"
+                                        >
+                                             Storage
+                                        </Typography>
                                    </TableRow>
-                              ))}
-                         </TableBody>
-                    </Table>
-               </TableContainer>
-               <Box
-                    sx={{
-                         display: 'flex',
-                         justifyContent: 'space-between',
-                         alignItems: 'center',
-                    }}
-               >
-                    <TablePagination
-                         component="div"
-                         rowsPerPageOptions={[]}
-                         count={rows.length}
-                         rowsPerPage={rowsPerPage}
-                         page={page}
-                         onPageChange={onPageChange}
-                    />
-                    <Button sx={{ mx: 1 }} variant="contained">
-                         Write data on chain
-                    </Button>
-               </Box>
-          </Paper>
+                                   <TableRow>{renderTableHeaders()}</TableRow>
+                              </TableHead>
+                              <TableBody>
+                                   {paginatedData.map((row) => (
+                                        <TableRow
+                                             key={row.hash}
+                                             sx={{
+                                                  '&:last-child td, &:last-child th':
+                                                       {
+                                                            border: 0,
+                                                       },
+                                             }}
+                                        >
+                                             <TableCell
+                                                  component="th"
+                                                  scope="row"
+                                             >
+                                                  {minifyAddress(row.hash)}
+                                             </TableCell>
+                                             <TableCell>
+                                                  {utils.hexToAscii(
+                                                       '0x' +
+                                                            row.data.slice(138)
+                                                  )}
+                                             </TableCell>
+                                             <TableCell>
+                                                  {renderDate(row.timestamp)}
+                                             </TableCell>
+                                             <TableCell>
+                                                  {minifyAddress(row.from)}
+                                             </TableCell>
+                                        </TableRow>
+                                   ))}
+                              </TableBody>
+                         </Table>
+                    </TableContainer>
+                    <Box
+                         sx={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                         }}
+                    >
+                         <TablePagination
+                              component="div"
+                              rowsPerPageOptions={[]}
+                              count={rows.length}
+                              rowsPerPage={rowsPerPage}
+                              page={page}
+                              onPageChange={onPageChange}
+                         />
+                         <Button
+                              sx={{ mx: 1 }}
+                              variant="contained"
+                              onClick={handleWriteModalShow}
+                         >
+                              Write data on chain
+                         </Button>
+                    </Box>
+               </Paper>
+          </>
      );
 };
 
