@@ -1,5 +1,5 @@
 const config = {
-     contractAddress: '0x833C0de74b9F99c2D76aEe61F64293C84264A09b',
+     contractAddress: '0x95dEaefD70A4a70812a5d8B3d1B9C06B9Cadd912',
      etherNetwork: 'goerli',
      etherScanAPI: 'F4YAKFN29PTTV37AYJS3ZK2FSHXUVAVS66',
 };
